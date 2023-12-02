@@ -14,7 +14,7 @@ fn solve_2() !void {
     _ = lines;
 }
 
-pub fn main() void {
+pub fn main() !void {
     try solve_1();
     try solve_2();
 }
