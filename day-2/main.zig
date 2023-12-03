@@ -10,13 +10,7 @@ fn solve_1() !void {
     var ans: usize = 0;
     var id: usize = 1;
     while (lines.next()) |line| : (id += 1) {
-        var skip: usize = 0;
-        for (0.., line) |i, c| {
-            if (c == ':') {
-                skip = i + 2;
-                break;
-            }
-        }
+        var skip: usize = std.mem.indexOfScalar(u8, line, ':').? + 2;
 
         var valid = true;
 
@@ -52,13 +46,7 @@ fn solve_2() !void {
 
     var ans: u32 = 0;
     while (lines.next()) |line| {
-        var skip: usize = 0;
-        for (0.., line) |i, c| {
-            if (c == ':') {
-                skip = i + 2;
-                break;
-            }
-        }
+        var skip: usize = std.mem.indexOfScalar(u8, line, ':').? + 2;
 
         {
             var counts = std.StringHashMap(u32).init(gpa.allocator());
