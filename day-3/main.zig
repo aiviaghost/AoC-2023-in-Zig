@@ -30,12 +30,12 @@ fn solve_1() !void {
     for (0..height) |row| {
         var prev_pos: usize = 0;
         while (std.mem.indexOfAnyPos(u8, &grid[row], prev_pos, "0123456789")) |number_start| {
-            var number_end: usize = (std.mem.indexOfNonePos(u8, &grid[row], number_start, "0123456789") orelse width) - 1;
+            var number_end = std.mem.indexOfNonePos(u8, &grid[row], number_start, "0123456789") orelse width;
 
             var valid = false;
 
             var col = if (number_start > 0) number_start - 1 else number_start;
-            var end = if (number_end < width - 1) number_end + 1 else number_end;
+            var end = if (number_end < width) number_end else number_end - 1;
 
             while (col <= end) : (col += 1) {
                 valid = valid or is_symbol(grid[row][col]);
@@ -48,7 +48,7 @@ fn solve_1() !void {
             }
 
             if (valid) {
-                ans += std.fmt.parseInt(u32, grid[row][number_start .. number_end + 1], 10) catch 0;
+                ans += std.fmt.parseInt(u32, grid[row][number_start..number_end], 10) catch 0;
             }
 
             prev_pos = number_end + 1;
@@ -72,12 +72,12 @@ fn solve_2() !void {
     for (0..height) |row| {
         var prev_pos: usize = 0;
         while (std.mem.indexOfAnyPos(u8, &grid[row], prev_pos, "0123456789")) |number_start| {
-            var number_end: usize = (std.mem.indexOfNonePos(u8, &grid[row], number_start, "0123456789") orelse width) - 1;
+            var number_end = std.mem.indexOfNonePos(u8, &grid[row], number_start, "0123456789") orelse width;
 
-            var num: u32 = std.fmt.parseInt(u32, grid[row][number_start .. number_end + 1], 10) catch 0;
+            var num: u32 = std.fmt.parseInt(u32, grid[row][number_start..number_end], 10) catch 0;
 
             var col = if (number_start > 0) number_start - 1 else number_start;
-            var end = if (number_end < width - 1) number_end + 1 else number_end;
+            var end = if (number_end < width) number_end else number_end - 1;
 
             while (col <= end) : (col += 1) {
                 if (grid[row][col] == '*') {
@@ -111,12 +111,7 @@ fn solve_2() !void {
 }
 
 pub fn main() !void {
-    comptime {
-        @setEvalBranchQuota(1000000);
-        try solve_1();
-    }
-    comptime {
-        @setEvalBranchQuota(1000000);
-        try solve_2();
-    }
+    @setEvalBranchQuota(1000000);
+    comptime try solve_1();
+    comptime try solve_2();
 }
