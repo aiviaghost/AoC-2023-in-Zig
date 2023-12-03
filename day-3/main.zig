@@ -32,13 +32,7 @@ fn solve_1() !void {
     for (0..height) |row| {
         var prev_pos: usize = 0;
         while (std.mem.indexOfAnyPos(u8, &grid[row], prev_pos, "0123456789")) |number_start| {
-            var number_end: usize = 0;
-            for (number_start.., grid[row][number_start..]) |j, c| {
-                if (!is_digit(c)) {
-                    break;
-                }
-                number_end = j;
-            }
+            var number_end: usize = (std.mem.indexOfNonePos(u8, &grid[row], number_start, "0123456789") orelse width) - 1;
 
             var valid = false;
 
@@ -82,13 +76,7 @@ fn solve_2() !void {
     for (0..height) |row| {
         var prev_pos: usize = 0;
         while (std.mem.indexOfAnyPos(u8, &grid[row], prev_pos, "0123456789")) |number_start| {
-            var number_end: usize = 0;
-            for (number_start.., grid[row][number_start..]) |j, c| {
-                if (!is_digit(c)) {
-                    break;
-                }
-                number_end = j;
-            }
+            var number_end: usize = (std.mem.indexOfNonePos(u8, &grid[row], number_start, "0123456789") orelse width) - 1;
 
             var num: u32 = std.fmt.parseInt(u32, grid[row][number_start .. number_end + 1], 10) catch 0;
 
