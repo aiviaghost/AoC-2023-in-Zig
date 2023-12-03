@@ -22,9 +22,7 @@ fn solve_1() !void {
     var grid: [height][width]u8 = .{.{0} ** width} ** height;
     var y: usize = 0;
     while (lines.next()) |line| : (y += 1) {
-        for (0.., line) |x, c| {
-            grid[y][x] = c;
-        }
+        @memcpy(&grid[y], line);
     }
 
     var ans: u32 = 0;
@@ -65,9 +63,7 @@ fn solve_2() !void {
     var grid: [height][width]u8 = .{.{0} ** width} ** height;
     var y: usize = 0;
     while (lines.next()) |line| : (y += 1) {
-        for (0.., line) |x, c| {
-            grid[y][x] = c;
-        }
+        @memcpy(&grid[y], line);
     }
 
     var counts: [height][width]u8 = .{.{0} ** width} ** height;
