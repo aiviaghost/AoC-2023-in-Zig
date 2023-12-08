@@ -2,7 +2,8 @@ const std = @import("std");
 
 const input = @embedFile("input.txt");
 
-var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+var gpa_impl = std.heap.GeneralPurposeAllocator(.{}){};
+const gpa = gpa_impl.allocator();
 
 const String = []const u8;
 
