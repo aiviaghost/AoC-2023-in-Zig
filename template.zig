@@ -4,6 +4,8 @@ const input = @embedFile("input.txt");
 
 var gpa = std.heap.GeneralPurposeAllocator(.{}){};
 
+const String = []const u8;
+
 fn solve_1() !void {
     var lines = std.mem.tokenizeSequence(u8, input, "\n");
     _ = lines;
