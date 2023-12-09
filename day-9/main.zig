@@ -68,14 +68,8 @@ fn solve_1() !void {
         }
 
         var curr: i64 = 0;
-        var i: usize = last_nums.items.len - 1;
-        while (true) {
-            curr = last_nums.items[i] + curr;
-
-            if (i == 0) {
-                break;
-            }
-            i -= 1;
+        while (last_nums.popOrNull()) |i| {
+            curr = i + curr;
         }
 
         ans += curr;
@@ -128,14 +122,8 @@ fn solve_2() !void {
         }
 
         var curr: i64 = 0;
-        var i: usize = first_nums.items.len - 1;
-        while (true) {
-            curr = first_nums.items[i] - curr;
-
-            if (i == 0) {
-                break;
-            }
-            i -= 1;
+        while (first_nums.popOrNull()) |i| {
+            curr = i - curr;
         }
 
         ans += curr;
